@@ -81,7 +81,7 @@ Setting `SSH_ENABLE_ROOT_PASSWORD_AUTH=true` also enables password authentificat
 
 For example you could add the following script to `/etc/entrypoint.d/`
 
-**setpasswd.sh**
+### setpasswd.sh
 
 ```bash
 #!/usr/bin/env bash
@@ -98,7 +98,7 @@ It is strongly recommend to pre-hash passwords. Passwords that are not hashed ar
 
 To generate a hashed password use `mkpasswd` which is available in this image or use [https://trnubo.github.io/passwd.html](https://trnubo.github.io/passwd.html) to generate a hash in your browser. Example use of `mkpasswd` below.
 
-```
+```bash
 $ docker run --rm -it --entrypoint /usr/bin/env quay.io/panubo/sshd:1.9.0 mkpasswd
 Password:
 $6$w0ZvF/gERVgv08DI$PTq73dIcZLfMK/Kxlw7rWDvVcYvnWJuOWtxC7sXAYZL69CnItCS.QM.nTUyMzaT0aYjDBdbCH1hDiwbQE8/BY1
@@ -106,7 +106,7 @@ $6$w0ZvF/gERVgv08DI$PTq73dIcZLfMK/Kxlw7rWDvVcYvnWJuOWtxC7sXAYZL69CnItCS.QM.nTUyM
 
 To start sshd with the `setpasswd.sh` script
 
-```
+```bash
 docker run -ti -p 2222:22 \
   -v $(pwd)/keys/:/etc/ssh/keys \
   -e SSH_USERS=user:1000:1000 \
@@ -118,7 +118,7 @@ docker run -ti -p 2222:22 \
 To enable password authentication on the root account, the previous `setpasswd.sh` script must also define a password for the root user, then
 the command will be:
 
-```
+```bash
 docker run -ti -p 2222:22 \
   -e SSH_ENABLE_ROOT_PASSWORD_AUTH=true \
   -v $(pwd)/entrypoint.d/:/etc/entrypoint.d/ \
@@ -133,7 +133,7 @@ directory.
 
 You can access with `ssh root@localhost -p 2222` using your private key.
 
-```
+```bash
 docker run -ti -p 2222:22 \
   -v ${HOME}/.ssh/id_rsa.pub:/root/.ssh/authorized_keys:ro \
   -v $(pwd)/keys/:/etc/ssh/keys \
@@ -144,7 +144,7 @@ docker run -ti -p 2222:22 \
 
 Create a `www` user with gid/uid 48. You can access with `ssh www@localhost -p 2222` using your private key.
 
-```
+```bash
 docker run -ti -p 2222:22 \
   -v ${HOME}/.ssh/id_rsa.pub:/etc/authorized_keys/www:ro \
   -v $(pwd)/keys/:/etc/ssh/keys \
