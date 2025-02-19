@@ -1,7 +1,7 @@
-FROM alpine:3
+FROM docker.io/alpine:3
 
 RUN apk update && \
-    apk add --no-cache augeas bash git openssh rssh rsync shadow && \
+    apk add augeas bash git openssh rsync  && \
     deluser $(getent passwd 33 | cut -d: -f1) && \
     delgroup $(getent group 33 | cut -d: -f1) 2>/dev/null || true && \
     mkdir -p ~root/.ssh /etc/authorized_keys && chmod 700 ~root/.ssh/ && \
@@ -12,8 +12,8 @@ RUN apk update && \
 
 EXPOSE 22
 
-COPY entry.sh /entry.sh
+COPY entry_wiremind.sh /entry.sh
 
 ENTRYPOINT ["/entry.sh"]
 
-CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config"]
+CMD ["/usr/sbin/sshd", "-D", "-f", "/etc/ssh/sshd_config"]
