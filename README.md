@@ -2,6 +2,16 @@
 
 Minimal Alpine Linux Docker image with `sshd` exposed and `rsync` installed. The image is available on quay.io `quay.io/panubo/sshd` and AWS ECR Public `public.ecr.aws/panubo/sshd`.
 
+## XIP build
+
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/repository/docker/xipdockeruser/docker-sshd-xip)
+
+[![docker-sshd-xip](https://github.com/xip-online-applications/docker-sshd/actions/workflows/cicd.yml/badge.svg)](https://github.com/xip-online-applications/docker-sshd/actions/workflows/cicd.yml)
+
+This is basically [panubo/docker-sshd](https://github.com/panubo/docker-sshd), but it gets built every month (if GitHub doesn't prevent that) and pushed to [hub.docker.com/r/xipdockeruser/docker-sshd-xip](https://hub.docker.com/r/xipdockeruser/docker-sshd-xip).
+
+In addition, it uses `alpine:3` instead of `alpine:3.ancient_version_number`.
+
 ## Environment Options
 
 Configure the container with the following environment variables or optionally mount a custom sshd config at `/etc/ssh/sshd_config`:
