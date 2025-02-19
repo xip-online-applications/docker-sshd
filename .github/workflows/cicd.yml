@@ -40,3 +40,15 @@ jobs:
           xipdockeruser/docker-sshd-xip:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
+
+    - name: 🚀 Push docker-sshd-xip wiremind
+      uses: docker/build-push-action@v6
+      with:
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          xipdockeruser/docker-sshd-xip:wiremind
+        build-args: |
+          wiremind=true
+        cache-from: type=gha
+        cache-to: type=gha,mode=max

@@ -1,5 +1,7 @@
 FROM alpine:3
 
+ARG wiremind
+
 RUN apk update && \
     apk add --no-cache augeas bash git openssh rssh rsync shadow && \
     deluser $(getent passwd 33 | cut -d: -f1) && \
@@ -12,7 +14,10 @@ RUN apk update && \
 
 EXPOSE 22
 
-COPY entry.sh /entry.sh
+COPY entry_wiremind.sh /entry_wiremind.sh
+COPY entry.sh /entry_standard.sh
+
+RUN if [ "$wiremind" = "true" ]; then cp /entry_wiremind.sh /entry.sh; else cp /entry_standard.sh /entry.sh; fi
 
 ENTRYPOINT ["/entry.sh"]
 
